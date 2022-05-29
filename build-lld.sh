@@ -23,8 +23,8 @@ done
 
 # Let's keep this as is
 export WORK_DIR="$PWD"
-export PREFIX="./../gcc-${arch}"
-export PATH="$PREFIX/bin:$PATH"
+export PREFIX="${WORK_DIR}/../gcc-${arch}"
+export PATH="${PREFIX}/bin:$PATH"
 
 echo "Cleaning up previously cloned repos..."
 rm -rf $WORK_DIR/llvm-project
@@ -35,7 +35,7 @@ download_resources() {
   echo ">"
   echo "> Downloading LLVM for LLD"
   echo ">"
-  git clone https://github.com/llvm/llvm-project -b release/16.x llvm --depth=1
+  git clone https://github.com/llvm/llvm-project -b release/16.x llvm-project --depth=1
   cd "${WORK_DIR}"
 }
 
@@ -44,10 +44,11 @@ build_lld() {
   echo ">"
   echo "> Building LLD"
   echo ">"
-  mkdir -p llvm/build
-  cd llvm/build
-  export INSTALL_LLD_DIR="../../../gcc-${arch}"
-  cmake -G "Ninja" \
+  mkdir -p llvm-project/build
+  cd llvm-project/build
+  export INSTALL_LLD_DIR="${PREFIX}"
+  export LLVM_CMAKE_PATH="$(find /usr -name LLVMConfig.cmake -print 2>/dev/null | xargs dirname)"
+  cmake ../llvm -G "Ninja" \
     -DLLVM_ENABLE_PROJECTS=lld \
     -DCMAKE_INSTALL_PREFIX="$INSTALL_LLD_DIR" \
     -DLLVM_DEFAULT_TARGET_TRIPLE="$TARGET_CLANG" \
@@ -72,7 +73,8 @@ build_lld() {
     -DCMAKE_C_FLAGS="-O3" \
     -DCMAKE_CXX_FLAGS="-O3" \
     -DLLVM_ENABLE_PIC=False \
-    ../llvm
+    -DLLVM_CMAKE_PATH=$LLVM_CMAKE_PATH \
+    -DLLVM_BUILD_TOOLS=Off
   ninja -j$(nproc --all)
   ninja -j$(nproc --all) install
   # Create proper symlinks
