@@ -74,6 +74,7 @@ build_lld() {
     -DCMAKE_CXX_FLAGS="-O3" \
     -DLLVM_ENABLE_PIC=False \
     -DLLVM_CMAKE_PATH=$LLVM_CMAKE_PATH \
+    -DCMAKE_EXE_LINKER_FLAGS="-s" \
     -DLLVM_BUILD_TOOLS=Off
   ninja -j$(nproc --all)
   ninja -j$(nproc --all) install
