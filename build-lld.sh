@@ -65,7 +65,7 @@ build_lld() {
     -DCMAKE_CROSSCOMPILING=True \
     -DCMAKE_CXX_COMPILER="$(which clang++)" \
     -DCMAKE_CXX_FLAGS="-O3" \
-    -DCMAKE_EXE_LINKER_FLAGS="-static --static" \
+    -DCMAKE_EXE_LINKER_FLAGS="-static --static -s" \
     -DCMAKE_INSTALL_PREFIX="$INSTALL_LLD_DIR" \
     -DLLVM_BUILD_RUNTIME=Off \
     -DLLVM_BUILD_TOOLS=Off \
