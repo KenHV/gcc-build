@@ -7,13 +7,17 @@ arm64_task:
   name: ARM64 build
   timeout_in: 120m
   container:
-    image: fedora:rawhide
+    image: alpine:latest
     cpu: 8
-    memory: 20G
+    memory: 10G
   setup_env_script:
-    - dnf -y upgrade
-    - dnf -y groupinstall "Development tools"
-    - dnf -y install binutils-devel bison ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
+    - apk add gcc g++ texinfo make curl bash ninja bison flex git cmake clang lld mpfr-dev mpc1-dev llvm clang python3
+      ccache tar unzip
+    - curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
+    - unzip rclone-current-linux-amd64.zip
+    - cp rclone-*-linux-amd64/rclone /usr/bin/
+    - chown root:root /usr/bin/rclone
+    - chmod 755 /usr/bin/rclone
     - mkdir -p ~/.config/rclone
     - echo "$RCLONE_CONF" > ~/.config/rclone/rclone.conf
     - rclone copy gdrive:ccache-arm64.tar /tmp
@@ -24,7 +28,7 @@ arm64_task:
     - ccache --set-config=compression=true
     - chmod a+x ci.sh
   build_script:
-    - env PATH="/usr/lib64/ccache:${PATH}" bash ci.sh --arm64
+    - env PATH="/usr/lib/ccache/bin:${PATH}" bash ci.sh --arm64
   store_cache_script:
     - tar -C /tmp -cf /tmp/ccache-arm64.tar ccache
     - rclone copy /tmp/ccache-arm64.tar gdrive
@@ -33,13 +37,17 @@ arm_task:
   name: ARM build
   timeout_in: 120m
   container:
-    image: fedora:rawhide
+    image: alpine:latest
     cpu: 8
-    memory: 20G
+    memory: 10G
   setup_env_script:
-    - dnf -y upgrade
-    - dnf -y groupinstall "Development tools"
-    - dnf -y install binutils-devel bison ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
+    - apk add gcc g++ texinfo make curl bash ninja bison flex git cmake clang lld mpfr-dev mpc1-dev llvm clang python3
+      ccache tar unzip
+    - curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
+    - unzip rclone-current-linux-amd64.zip
+    - cp rclone-*-linux-amd64/rclone /usr/bin/
+    - chown root:root /usr/bin/rclone
+    - chmod 755 /usr/bin/rclone
     - mkdir -p ~/.config/rclone
     - echo "$RCLONE_CONF" > ~/.config/rclone/rclone.conf
     - rclone copy gdrive:ccache-arm.tar /tmp
@@ -50,7 +58,7 @@ arm_task:
     - ccache --set-config=compression=true
     - chmod a+x ci.sh
   build_script:
-    - env PATH="/usr/lib64/ccache:${PATH}" bash ci.sh --arm
+    - env PATH="/usr/lib/ccache/bin:${PATH}" bash ci.sh --arm
   store_cache_script:
     - ccache -s
     - tar -C /tmp -cf /tmp/ccache-arm.tar ccache
