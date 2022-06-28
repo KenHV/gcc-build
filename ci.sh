@@ -7,7 +7,7 @@ export TZ=Asia/Kolkata
 USER="KenHV"
 MAIL="yo@kenharris.xyz"
 ORG="KenHV"
-BRANCH="master"
+BRANCH="musl"
 
 if [ "$1" = "--arm64" ]; then
     ARCH="arm64"
