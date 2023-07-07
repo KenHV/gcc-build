@@ -6,12 +6,12 @@ arm64_task:
   name: ARM64 build
   timeout_in: 120m
   container:
-    image: fedora:rawhide
+    image: fedora:38
     cpu: 8
-    memory: 20G
+    memory: 12G
   setup_env_script:
     - dnf -y upgrade
-    - dnf -y group install development-tools
+    - dnf -y groupinstall development-tools
     - dnf -y install binutils-devel bison bzip2 ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
     - chmod a+x ci.sh
   build_script:
@@ -21,12 +21,12 @@ arm_task:
   name: ARM build
   timeout_in: 120m
   container:
-    image: fedora:rawhide
+    image: fedora:38
     cpu: 8
-    memory: 20G
+    memory: 12G
   setup_env_script:
     - dnf -y upgrade
-    - dnf -y group install development-tools
+    - dnf -y groupinstall development-tools
     - dnf -y install binutils-devel bison bzip2 ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
     - chmod a+x ci.sh
   build_script:
