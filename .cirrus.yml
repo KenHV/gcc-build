@@ -12,7 +12,7 @@ arm64_task:
   setup_env_script:
     - dnf -y upgrade
     - dnf -y group install development-tools
-    - dnf -y install binutils-devel bison ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
+    - dnf -y install binutils-devel bison bzip2 ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
     - chmod a+x ci.sh
   build_script:
     - bash ci.sh --arm64
@@ -27,7 +27,7 @@ arm_task:
   setup_env_script:
     - dnf -y upgrade
     - dnf -y group install development-tools
-    - dnf -y install binutils-devel bison ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
+    - dnf -y install binutils-devel bison bzip2 ccache clang cmake flex g++ glibc-devel glibc-devel.i686 gmp-devel libmpc-devel lld llvm llvm-devel mpfr-devel ninja-build rclone tar texinfo which zlib-devel
     - chmod a+x ci.sh
   build_script:
     - bash ci.sh --arm
