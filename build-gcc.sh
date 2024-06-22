@@ -42,11 +42,11 @@ echo "||                                                                    ||"
 download_resources() {
   echo "Downloading Pre-requisites"
   echo "Cloning binutils"
-  git clone git://sourceware.org/git/binutils-gdb.git -b binutils-2_41-branch binutils --depth=1
+  git clone git://sourceware.org/git/binutils-gdb.git -b binutils-2_42-branch binutils --depth=1
   sed -i '/^development=/s/true/false/' binutils/bfd/development.sh
   echo "Cloned binutils!"
   echo "Cloning GCC"
-  git clone git://gcc.gnu.org/git/gcc.git -b releases/gcc-13 gcc --depth=1
+  git clone git://gcc.gnu.org/git/gcc.git -b releases/gcc-14 gcc --depth=1
   cd "${WORK_DIR}"
   echo "Downloaded prerequisites!"
 }

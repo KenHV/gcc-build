@@ -5,7 +5,7 @@ set -e
 export TZ=Asia/Kolkata
 
 USER="KenHV"
-MAIL="yo@kenharris.xyz"
+MAIL="ken@kenhv.com"
 ORG="KenHV"
 BRANCH="master"
 

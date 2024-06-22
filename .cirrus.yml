@@ -6,7 +6,7 @@ arm64_task:
   name: ARM64 build
   timeout_in: 120m
   container:
-    image: fedora:38
+    image: fedora:latest
     cpu: 8
     memory: 12G
   setup_env_script:
@@ -21,7 +21,7 @@ arm_task:
   name: ARM build
   timeout_in: 120m
   container:
-    image: fedora:38
+    image: fedora:latest
     cpu: 8
     memory: 12G
   setup_env_script:
